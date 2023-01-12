@@ -1,5 +1,7 @@
 import time
 import os
+import math
+from datetime import datetime
 print()
 print()
 print('Split Board Dart Game')
@@ -30,7 +32,7 @@ print('Area 4 = The Fields 8 - 11 - 14')
 print('Area 5 = The Fields Bull - Bullsey')
 print('in each Round you have to hit the fields from its Area (Round 1 - Area 1)')
 print('for the inner fields (for example 20) you earn 5 Points and for the outer fields (for example 5 or 1) you earn 1 Point')
-print('')
+print('this is "Hard Mode", if you hit the wrong fields you get minus Points')
 print('You can Abort the Game if you type exit')
 while True:
     user_input = input("Do you want to start the game? (y/n)")
@@ -53,7 +55,7 @@ while True:
 
 
 scores_r1 = {
-    'player1': {'20': 0, '5': 0, '1': 0},
+    'player1': {'1': 0,'2': 0,'3': 0,'4': 0,'5': 0,'6': 0,'7': 0,'8': 0,'9': 0,'10': 0,'11': 0,'12': 0,'13': 0,'14': 0,'15': 0,'16': 0,'17': 0,'18': 0,'19': 0,'20': 0,'25': 0,'50': 0,'0': 0},
 }
 
 # Initialize number of rounds
@@ -73,30 +75,28 @@ for i in range(rounds):
             print()
             print("Which field do you hit with dart", j+1, "?")
             dart_score = input()
+            while not dart_score.isdigit():
+                print("Invalid input. Please enter a number.")
+                dart_score = input()
             if dart_score == '20':
                 scores_r1[player][dart_score] += 5
             elif dart_score == '1':
                 scores_r1[player][dart_score] += 1
             elif dart_score == '5':
                 scores_r1[player][dart_score] += 1
-            elif dart_score =='exit':
-                exit()    
-            else:
-                print()
-                print("Miss")
+            elif dart_score is not '20' or '1' or '5':
+                scores_r1[player][dart_score] -= 2
+            elif dart_score == 'exit':
+                exit()
 
 player1_round1_score = sum(scores_r1['player1'].values())
-
-print()
-print('Score:', player1_round1_score)
-print()
-print()
+scores_r1 = player1_round1_score
 
 os.system('clear')
 
 # Initialize scores for player for second Round
 scores_r2 = {
-    'player1': {'6': 0, '10': 0, '13': 0},
+    'player1': {'1': 0,'2': 0,'3': 0,'4': 0,'5': 0,'6': 0,'7': 0,'8': 0,'9': 0,'10': 0,'11': 0,'12': 0,'13': 0,'14': 0,'15': 0,'16': 0,'17': 0,'18': 0,'19': 0,'20': 0,'25': 0,'50': 0,'0': 0},
 }
 
 # Initialize number of rounds
@@ -118,34 +118,30 @@ for i in range(rounds):
             print()
             print("Which field do you hit with dart", j+1, "?")
             dart_score = input()
+            while not dart_score.isdigit():
+                print("Invalid input. Please enter a number.")
+                dart_score = input()
             if dart_score == '6':
                 scores_r2[player][dart_score] += 5
             elif dart_score == '10':
                 scores_r2[player][dart_score] += 1
             elif dart_score == '13':
                 scores_r2[player][dart_score] += 1
-            elif dart_score =='exit':
-                exit()        
-            else:
-                print()
-                print("Miss")
-
+            elif dart_score is not '6' or '10' or '13':
+                scores_r2[player][dart_score] -= 2
+            elif dart_score == 'exit':
+                exit()
 player1_round2_score = sum(scores_r2['player1'].values())
 
+scores_r2 = player1_round2_score
+player1_total_score = scores_r1 + scores_r2
 
-merged_score = {**scores_r1['player1'], **scores_r2['player1']}
-player1_total_score = sum(merged_score.values())
-
-print()
-print('Score:', player1_total_score)
-print()
-print()
 
 os.system('clear')
 
 # Initialize scores for player for third Round
 scores_r3 = {
-    'player1': {'3': 0, '19': 0, '17': 0},
+    'player1': {'1': 0,'2': 0,'3': 0,'4': 0,'5': 0,'6': 0,'7': 0,'8': 0,'9': 0,'10': 0,'11': 0,'12': 0,'13': 0,'14': 0,'15': 0,'16': 0,'17': 0,'18': 0,'19': 0,'20': 0,'25': 0,'50': 0,'0': 0},
 }
 
 # Initialize number of rounds
@@ -167,34 +163,31 @@ for i in range(rounds):
             print()
             print("Which field do you hit with dart", j+1, "?")
             dart_score = input()
+            while not dart_score.isdigit():
+                print("Invalid input. Please enter a number.")
+                dart_score = input()
             if dart_score == '3':
                 scores_r3[player][dart_score] += 5
             elif dart_score == '19':
                 scores_r3[player][dart_score] += 1
             elif dart_score == '17':
                 scores_r3[player][dart_score] += 1
-            elif dart_score =='exit':
-                exit()    
-            else:
-                print()
-                print("Miss")
-
+            elif dart_score is not '3' or '19' or '17':
+                scores_r3[player][dart_score] -= 2
+            elif dart_score == 'exit':
+                exit()
+    
 player1_round3_score = sum(scores_r3['player1'].values())
 
+scores_r3 = player1_round3_score
+player1_total_score = scores_r1 + scores_r2 + scores_r3
 
-merged_score = {**scores_r1['player1'], **scores_r2['player1'], **scores_r3['player1']}
-player1_total_score = sum(merged_score.values())
-
-print()
-print('Score:', player1_total_score)
-print()
-print()
 
 os.system('clear')
 
 # Initialize scores for player for fourth Round
 scores_r4 = {
-    'player1': {'11': 0, '14': 0, '8': 0},
+    'player1': {'1': 0,'2': 0,'3': 0,'4': 0,'5': 0,'6': 0,'7': 0,'8': 0,'9': 0,'10': 0,'11': 0,'12': 0,'13': 0,'14': 0,'15': 0,'16': 0,'17': 0,'18': 0,'19': 0,'20': 0,'25': 0,'50': 0,'0': 0},
 }
 
 # Initialize number of rounds
@@ -216,35 +209,31 @@ for i in range(rounds):
             print()
             print("Which field do you hit with dart", j+1, "?")
             dart_score = input()
+            while not dart_score.isdigit():
+                print("Invalid input. Please enter a number.")
+                dart_score = input()
             if dart_score == '11':
                 scores_r4[player][dart_score] += 5
             elif dart_score == '14':
                 scores_r4[player][dart_score] += 1
             elif dart_score == '8':
                 scores_r4[player][dart_score] += 1
-            elif dart_score =='exit':
-                exit()    
-            else:
-                print()
-                print("Miss")
+            elif dart_score is not '11' or '14' or '8':
+                scores_r4[player][dart_score] -= 2
+            elif dart_score == 'exit':
+                exit()
 
 player1_round4_score = sum(scores_r4['player1'].values())
 
-
-merged_score = {**scores_r1['player1'], **scores_r2['player1'], **scores_r3['player1'], **scores_r4['player1']}
-player1_total_score = sum(merged_score.values())
-
-print()
-print('Score:', player1_total_score)
-print()
-print()
-
-# Initialize scores for player for final Round
-scores_r5 = {
-    'player1': {'y': 0,},
-}
+scores_r4 = player1_round4_score
+player1_total_score = scores_r1 + scores_r2 + scores_r3 + scores_r4
 
 os.system('clear')
+# Initialize scores for player for final Round
+scores_r5 = {
+    'player1': {'n': 0,'y': 0,'1': 0,'2': 0,'3': 0,'4': 0,'5': 0,'6': 0,'7': 0,'8': 0,'9': 0,'10': 0,'11': 0,'12': 0,'13': 0,'14': 0,'15': 0,'16': 0,'17': 0,'18': 0,'19': 0,'20': 0,'25': 0,'50': 0,'0': 0},
+}
+
 
 # Initialize number of rounds
 rounds = 1
@@ -258,7 +247,7 @@ for i in range(rounds):
         print('Final Round')
         print()
         print ('try to hit the Bull or Bullseye for 5 Points')
-        print ('every other hit does not count')
+        print ('every other hit increses your Points by 2')
         print ('For Bull or Bullseye enter "y"')
         
         # Loop for 3 darts per turn
@@ -266,23 +255,40 @@ for i in range(rounds):
             print()
             print("Do you hit the Bull or Bullseye? (y/n)")
             dart_score = input()
+            while dart_score != 'y' and dart_score != 'n':
+                print("Invalid input. Please enter 'y' or 'n'.")
+                print("Do you hit the Bull or Bullseye?")
+                dart_score = input()
             if dart_score == 'y':
                 scores_r5[player][dart_score] += 5
-            elif dart_score =='exit':
+            elif dart_score == 'n':
+                scores_r5[player][dart_score] -= 2
+            elif dart_score == 'exit':
                 exit()
-            else:
-                print()
-                print("Miss")
-
+           
 player1_round5_score = sum(scores_r5['player1'].values())
 
-
-merged_score = {**scores_r1['player1'], **scores_r2['player1'], **scores_r3['player1'], **scores_r4['player1'], **scores_r5['player1']}
-player1_total_score = sum(merged_score.values())
+scores_r5 = player1_round5_score
+player1_total_score = scores_r1 + scores_r2 + scores_r3 + scores_r4 + scores_r5
 
 os.system('clear')
 
 print()
-print('Final Score:', player1_total_score)
+print()
+print("Your previous scores:")
+print()
+now = datetime.now()
+current_time = now.strftime("%d.%m.%Y %H:%M:%S")
+
+with open("score.txt", "a") as file:
+    file.write(current_time + " " + "Score:" + " " + str(player1_total_score) + "\n")
+
+with open("score.txt", "r") as file:
+    lines = file.readlines()
+    for line in lines:
+        print(line)
+print()
+print('Finals Score:', player1_total_score)
+print()
 print('Thanks for Playing')
 print()
